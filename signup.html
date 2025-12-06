@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    input{
+      font-size:20px;
+    }
+  </style>
+</head>
+<body style="background-color:orange">
+  <div id="signup-form">
+    <center>
+      <h1>Sign Up</h1>
+      <form id="signupForm"style="background-color:black;height:300px;width:300px;border-radius:20px"><br><br>
+        <input id="name" maxlength="20" minlength="2" placeholder="Name" required><br><br>
+        <input id="email" type="email" placeholder="Email" required><br><br>
+        <input id="password" type="password" placeholder="Password" minlength="3" required>
+        </br><br><a>
+        <button type="submit" style="font-size:25px;color:white;background-color: yellowgreen;">Sign Up</button></center><a/>
+      </form>
+  </div>
+  <script>
+    // Initialize arrays in local storage if they don't exist
+    if (!localStorage.getItem("names")) {
+      localStorage.setItem("names", JSON.stringify([]));
+    }
+    if (!localStorage.getItem("emails")) {
+      localStorage.setItem("emails", JSON.stringify([]));
+    }
+    if (!localStorage.getItem("passwords")) {
+      localStorage.setItem("passwords", JSON.stringify([]));
+    }
+    document.getElementById("signupForm").addEventListener("submit", function(event){
+      event.preventDefault();
+      // Get input values
+      let name = document.getElementById("name").value;
+      let email = document.getElementById("email").value;
+      let password = document.getElementById("password").value;
+      // Get arrays from local storage
+      let names = JSON.parse(localStorage.getItem("names"));
+      let emails = JSON.parse(localStorage.getItem("emails"));
+      let passwords = JSON.parse(localStorage.getItem("passwords"));
+      // Push input values to arrays
+      names.push(name);
+      emails.push(email);
+      passwords.push(password);
+      // Update arrays in local storage
+      localStorage.setItem("names", JSON.stringify(names));
+      localStorage.setItem("emails", JSON.stringify(emails));
+      localStorage.setItem("passwords", JSON.stringify(passwords));
+      localStorage.setItem("loginName", name);
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    input{
+      font-size:20px;
+    }
+  </style>
+</head>
+<body style="background-color:white"><center>
+  <br><br><h1 style="color:white;">Welcome to Chat Login!</h1><br><br>
+  <form id="loginForm">
+    <div id="login-form" style ="background-color :blue;width:300px;height:300px;border-radius:20px;">
+      <center><br>
+        <h1>Login</h1>
+        <input id="login-email" type="email" placeholder="Email" required><br><br>
+        <input id="login-password" type="password" placeholder="Password" required>
+        </br><br><a>
+        <button type="submit" style="font-size:25px;borcolor:green;background-color: yellow;">Login</button><br><br><a href ="signup.html"style="color:white">Create an account</a><br>
+      </center>
+    </div>
+  </form>
+</center>
+<script>
+  document.getElementById("loginForm").addEventListener("submit", function(event){
+    event.preventDefault();
+    login();
+  });
+
+  function login(){
+    // Get input values
+    let email = document.getElementById("login-email").value;
+    let password = document.getElementById("login-password").value;
+
+    if(email === "" || password === ""){
+      alert("Please fill in all fields");
+      return;
+    }
+
+    // Get arrays from local storage
+    let emails = JSON.parse(localStorage.getItem("emails") || "[]");
+    let passwords = JSON.parse(localStorage.getItem("passwords") || "[]");
+    let names = JSON.parse(localStorage.getItem("names") || "[]");
+
+    // Check if email and password match
+    for (let i = 0; i < emails.length; i++) {
+      if (emails[i] === email && passwords[i] === password) {
+        // Display welcome message
+        localStorage.setItem("loginName", names[i]);
+        window.location.href = "home.html";
+        return;
+      }
+    }
+    alert("Invalid email or password");
+  };
+</script>
+</body>
+</html>

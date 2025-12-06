@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    input{
+      font-size:20px;
+    }
+    #chat-log {
+      background-color:white;
+      border: 1px solid black;
+      border-radius:10px;
+      padding: 10px;
+      width:80%;
+      height: 400px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body style="background-color:black"><br><br>
+  <div id="home-page"style="background-color:pink;border-radius :30px">
+    <center><br>
+      <h1>Welcome to Balase Chat System!</h1>
+      <p id="welcome-message"></p>
+      <div id="chat-log"></div><br>
+      <input id="message" type="text" placeholder="Type a message...">
+      <button onclick="sendMessage()" style="font-size:25px;color:green;background-color: yellow;">Send</button>
+    </center>
+<br>  </div>
+  <script>
+    let name = localStorage.getItem("loginName");
+    document.getElementById("welcome-message").innerHTML = "Welcome, " + name + "!";
+
+    // Initialize chat log in local storage if it doesn't exist
+    if (!localStorage.getItem("chatLog")) {
+      localStorage.setItem("chatLog", JSON.stringify([]));
+    }
+
+    // Load chat log
+    let chatLog = JSON.parse(localStorage.getItem("chatLog"));
+    let chatLogDiv = document.getElementById("chat-log");
+    chatLog.forEach(function(message) {
+      let messageHTML = `<p><strong>${message.name}:</strong> ${message.text}</p>`;
+      chatLogDiv.innerHTML += messageHTML;
+    });
+
+    function sendMessage() {
+      let messageText = document.getElementById("message").value;
+      if (messageText !== "") {
+        let message = {
+          name: name,
+          text: messageText
+        };
+        chatLog.push(message);
+        if (chatLog.length > 1000) {
+          chatLog.shift();
+        }
+        localStorage.setItem("chatLog", JSON.stringify(chatLog));
+        let messageHTML = `<p><strong>${name}:</strong> ${messageText}</p>`;
+        chatLogDiv.innerHTML += messageHTML;
+        document.getElementById("message").value = "";
+        chatLogDiv.scrollTop = chatLogDiv.scrollHeight;
+      }
+    }
+
+    // Update chat log every second
+    setInterval(function() {
+      let newChatLog = JSON.parse(localStorage.getItem("chatLog"));
+      if (newChatLog.length > chatLog.length) {
+        chatLog = newChatLog;
+        chatLogDiv.innerHTML = "";
+        chatLog.forEach(function(message) {
+          let messageHTML = `<p ><strong>${message.name}:</strong> ${message.text}</p>`;
+          chatLogDiv.innerHTML += messageHTML;
+        });
+        chatLogDiv.scrollTop = chatLogDiv.scrollHeight;
+      }
+    }, 1000);
+  </script>
+</body>
+</html>

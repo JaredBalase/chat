@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    input{
+      font-size:20px;
+    }
+    #login-form, #signup-form, #home-page {
+      display: none;
+    }
+    body {
+      background-color: black;
+      font-family: Arial, sans-serif;
+    }
+    .welcome-container {
+      text-align: center;
+      margin-top: 100px;
+    }
+    .welcome-button {
+      font-size: 20px;
+      color: white;
+      background-color: black;
+      width: 250px;
+      height: 50px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+    .welcome-button:hover {
+      background-color: #ffffcc;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div id="welcome-page" class="welcome-container">
+    <h1 style="color: white;">Welcome!</h1>
+    <h2 style="color:white">to <i>Jared Balase</i>'s Chatting Website</h2>
+    <br><center>
+    <form style="background-color:orange;width:300px;align:center;border-radius:20px" onsubmit="return false;"><br>
+      <br><button class="welcome-button" onclick="showLoginForm()">Login</button>
+      <br>
+      <button class="welcome-button" onclick="showSignupForm()">Sign Up</button><br><br>
+    </form></center>
+  </div>
+  <script>
+    function showLoginForm() {
+      window.location.href = "login.html";
+    }
+    function showSignupForm() {
+      window.location.href = "signup.html";
+    }
+  </script>
+</body>
+</html>
